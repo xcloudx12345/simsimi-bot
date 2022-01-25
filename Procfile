@@ -1,1 +1,1 @@
-worker: node src/main.coffee
+worker: node main.js
