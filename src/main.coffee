@@ -90,11 +90,3 @@ client.on 'messageCreate', (message) ->
 
 # Login to Discord
 client.connect()
-express = require "express"
-
-app = express()
-
-app.get "/hello", (req, res) ->
-  res.writeHeader 200, "Content-Type": "text/plain"
-
-app.listen 3000
