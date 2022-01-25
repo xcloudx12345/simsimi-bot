@@ -1,1 +1,1 @@
-worker: dist/node main.js
+worker: npm run build && node dist/main.js
