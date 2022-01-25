@@ -3,10 +3,10 @@ module.exports.run = (client, message, args) ->
     client.createMessage message.channel.id,
     """
     :information_source: Here is the command list:
-    `#{client.config.prefix}chat` - Send something to Simsimi
-    `#{client.config.prefix}ping` - Get the bot latency
-    `#{client.config.prefix}lang` - Change Simsimi language in your server
-    `#{client.config.prefix}create-channel` - Create a channel to chat with Simsimi
+    `#{client.config.prefix}chat` - Nói chuyện với Sim
+    `#{client.config.prefix}ping` - Kiểm tra độ trễ của bot
+    `#{client.config.prefix}lang` - Đổi ngôn ngữ bot
+    `#{client.config.prefix}create-channel` - Tạo channel để nói chuyện với Sim không cần lệnh
     """
 
 module.exports.help = {

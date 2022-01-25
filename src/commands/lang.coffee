@@ -4,7 +4,8 @@ module.exports.run = (client, message, args) ->
         ["en", "English"],
         ["fr", "Français"],
         ["it", "Italiano"],
-        ["es", "español"]
+        ["es", "español"],
+        ["vn", "Việt Nam"]
     ]
     formattedLanguage = languages.map((l) -> """`#{l[0]}` (#{l[1]})""").join "\n"
 

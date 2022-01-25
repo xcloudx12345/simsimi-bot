@@ -1,7 +1,7 @@
 module.exports.run = (client, message, args) ->
 
     # Check if there is already a channel
-    channel = await message.channel.guild.createChannel("simsimi", 0, {
+    channel = await message.channel.guild.createChannel("simcute", 0, {
         topic: """Speak with <@#{client.user.id}> !""",
         nsfw: true,
         rateLimitPerUser: 5
@@ -11,7 +11,7 @@ module.exports.run = (client, message, args) ->
 
     return client.createMessage message.channel.id,
     """
-    Simsimi channel successfully created (<##{channel.id}>)!
+    Đã tạo xong channel của Sim (<##{channel.id}>)!
     """
 
 

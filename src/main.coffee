@@ -3,7 +3,7 @@ config = require("../config.json")
 
 # Create Discord Client
 Eris = require("eris")
-client = new Eris(config.token)
+client = new Eris(process.env.TOKEN)
 client.commands = []
 client.config = config
 
@@ -23,7 +23,7 @@ client.db = db
 # Load commands
 fs = require("fs")
 fs.readdir """#{__dirname}/commands""", (err, data) ->
-    if not data then return console.log """No command found..."""
+    if not data then return console.log """Không tìm thấy lệnh..."""
     data.forEach (filePath) ->
         cmdData = require("""#{__dirname}/commands/#{filePath}""")
         client.commands.push({
@@ -51,20 +51,19 @@ client.on 'messageCreate', (message) ->
         userData = client.db.get("chatUses").value()[message.author.id] or 0
         if userData > client.config.maxRequestPerUser
             return client.createMessage message.channel.id,
-            """:x: Ratelimit exceeded. You can't send messages to simsimi anymore..."""
+            """:x: Bạn hành sim quá nhiều, sim đã nghỉ chơi bạn rồi!..."""
 
         # Try to get guild language
         guildLanguage = client.db.get("serversLanguages").value()[message.channel.guild.id]
 
         # Make the request
         res = await client.simsimi.request(message.content, guildLanguage)
-
-        if not res.atext
+        if not res.success
             return message.addReaction "😢"
 
         # Reply
         client.createMessage message.channel.id,
-        """#{res.atext}"""
+        """#{res.success}"""
 
         # Save uses
         client.db.set("""chatUses.#{message.author.id}""", userData + 1)
@@ -79,15 +78,23 @@ client.on 'messageCreate', (message) ->
     commandFound = client.commands.find (cmdData) -> cmdData.name is command
     if not commandFound
         client.createMessage message.channel.id,
-        """Unknown command. Send `#{config.prefix}help` to get the list of commands."""
+        """Sai lệnh. Gõ `#{config.prefix}help` để xem lệnh."""
     else
         if commandFound.onlyMod and not message.member.permission.json.manageMessages
-            return client.createMessage message.channel.id, ":x: Only mods can run this command"
+            return client.createMessage message.channel.id, ":x: QTV mới xài được lệnh này"
         if commandFound.name is "eval" and message.author.id isnt config.owner
             return client.createMessage message.channel.id,
-            ":x: Only the owner can run this command"
+            ":x: Chỉ có Pikachu mới xài được lệnh này"
         commandFound.run client, message, args
 
 
 # Login to Discord
 client.connect()
+express = require "express"
+
+app = express()
+
+app.get "/hello", (req, res) ->
+  res.writeHeader 200, "Content-Type": "text/plain"
+
+app.listen 3000
