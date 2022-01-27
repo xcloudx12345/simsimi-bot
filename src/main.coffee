@@ -90,11 +90,11 @@ client.on 'messageCreate', (message) ->
 
 # Login to Discord
 client.connect()
-
+client.connect()
 express = require "express"
 
 app = express()
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.listen process.env.PORT
+app.listen process.env.PORT || 3000
