@@ -8,6 +8,7 @@ module.exports.run = (client, message, args) ->
     `#{client.config.prefix}lang` - Đổi ngôn ngữ bot
     `#{client.config.prefix}channel` - Set một channel có sẵn để nói chuyện với Sim không cần lệnh
     `#{client.config.prefix}create-channel` - Tạo channel để nói chuyện với Sim không cần lệnh
+    `#{client.config.prefix}setprefix <lệnh mới>` - Đổi lệnh gọi Sim
     """
 
 module.exports.help = {
