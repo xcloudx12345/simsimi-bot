@@ -5,7 +5,7 @@ module.exports.run = (client, message, args) ->
         return client.createMessage message.channel.id,
         """:x: Bạn chưa gõ dấu lệnh mới, lệnh hiện tại vẫn là .#{client.config.prefix}!"""
     else
-        client.config.prefix.set("""prefix.#{args[0]}""").write()
+        client.config.prefix = args[0]
         return client.createMessage message.channel.id,
         """:x: Lệnh của Sim đã được đổi thành .#{client.config.prefix}!"""
 
