@@ -21,7 +21,7 @@ module.exports.run = (client, message, args) ->
 
     # Reply
     client.createMessage message.channel.id,
-    """#{res.atext}"""
+    """#{res.success}"""
 
     # Save uses
     client.db.set("""chatUses.#{message.author.id}""", userData + 1)
