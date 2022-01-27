@@ -2,7 +2,7 @@ module.exports.run = (client, message, args) ->
 
     # Check if there is already a channel
     simchannel = client.db.get("serversChannels").value()[message.channel.guild.id]
-    if (simchannel?){ ... }
+    if simchannel != null
     client.db.set("""serversChannels.#{message.channel.guild.id}""", message.channel.id)
     .write()
 
