@@ -16,7 +16,7 @@ module.exports.run = (client, message, args) ->
     # Make the request
     res = await client.simsimi.request(args.join(" "), guildLanguage)
 
-    if not res.atext
+    if not res.success
         return message.addReaction "😢"
 
     # Reply
