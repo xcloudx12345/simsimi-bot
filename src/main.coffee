@@ -1,12 +1,11 @@
 # Load config
 config = require("../config.json")
-
 # Create Discord Client
 Eris = require("eris")
 client = new Eris(process.env.TOKEN)
 client.commands = []
 client.config = config
-
+emojic = require("discord-emoji-converter")
 # Create Simsimi Client
 Simsimi = require("./simsimi")
 client.simsimi = new Simsimi config.simsimi
@@ -16,7 +15,7 @@ lowdb = require("lowdb")
 FileSync = require("lowdb/adapters/FileSync")
 adapter = new FileSync('./db.json')
 db = lowdb(adapter)
-db.defaults({ chatUses: {}, serversLanguages: {}, serversChannels: {} })
+db.defaults({ chatUses: {}, serversLanguages: {}, serversChannels: {} ,serversPrefix: {}})
 .write()
 client.db = db
 
@@ -33,14 +32,15 @@ fs.readdir """#{__dirname}/commands""", (err, data) ->
         })
         console.log """Loading Command: #{cmdData.help.name} 👌"""
     console.log """Loading a total of #{client.commands.length} commands!"""
-
+    
+   
 client.on 'ready', ->
     console.log """
         Logged as #{client.user.username}##{client.user.discriminator}
     """
-
+    
 client.on 'messageCreate', (message) ->
-
+ 
     # Ignore bots
     if message.author.bot or not message.channel then return
 
@@ -58,12 +58,18 @@ client.on 'messageCreate', (message) ->
 
         # Make the request
         res = await client.simsimi.request(message.content, guildLanguage)
-        if not res.success
+        if not res.message
             return message.addReaction "😢"
-
+        if res.message == "error"
+            return client.createMessage message.channel.id,
+            """:x: đừng gửi emo hông hiểu má ơi!..."""
+            
+        if /bố m là ai|bố mày là ai|ba m là ai|ba mày là ai/.test(message.content.toLowerCase())
+            return client.createMessage message.channel.id,
+            """Là Pikachu chứ ai!!!"""
         # Reply
         client.createMessage message.channel.id,
-        """#{res.success}"""
+        """#{res.message_info.message_reply}"""
 
         # Save uses
         client.db.set("""chatUses.#{message.author.id}""", userData + 1)
@@ -89,12 +95,13 @@ client.on 'messageCreate', (message) ->
 
 
 # Login to Discord
+
 client.connect()
-client.connect()
+
 express = require "express"
 
 app = express()
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.listen process.env.PORT || 3000
+app.listen 3000

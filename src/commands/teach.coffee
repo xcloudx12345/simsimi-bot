@@ -14,14 +14,14 @@ module.exports.run = (client, message, args) ->
     guildLanguage = client.db.get("serversLanguages").value()[message.channel.guild.id]
 
     # Make the request
-    res = await client.simsimi.request(args.join(" "), guildLanguage)
+    res = await client.simsimi.request(message.content, guildLanguage)
 
-    if not res.message
+    if not res.success
         return message.addReaction "😢"
 
     # Reply
     client.createMessage message.channel.id,
-    """#{res.message_info.message_reply}"""
+    """Sim nhớ rồi! #{res.success}"""
 
     # Save uses
     client.db.set("""chatUses.#{message.author.id}""", userData + 1)
@@ -29,6 +29,6 @@ module.exports.run = (client, message, args) ->
 
 
 module.exports.help = {
-    name: "chat",
-    onlyMod: false
+    name: "teach",
+    onlyMod: true
 }

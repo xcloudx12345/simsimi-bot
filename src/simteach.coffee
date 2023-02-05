@@ -1,13 +1,19 @@
 fetch = require("node-fetch")
-class Simsimi
+
+
+
+class simteach
     constructor: (@token) ->
 
     request: (content, language, token) ->
         tokenToUse = if token then token else @token
-        url = new URL('https://dkmpostor-auto-chat.herokuapp.com/autochat/')
+        url = new URL('https://simsimi.info/api/')
+        text = content.split('=>')
         params = 
-        message: content
-        lang: language
+        teach: 'true'
+        ask: text[0]
+        ans: text[1]
+        lc: language
         url.search = new URLSearchParams(params).toString()
         return new Promise (resolve, reject) ->
             fetch(url).then (res) ->
@@ -16,5 +22,4 @@ class Simsimi
                     console.log await res.text()
                 resolve data
 
-
-module.exports = Simsimi
+module.exports = simteach

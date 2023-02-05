@@ -6,8 +6,10 @@ module.exports.run = (client, message, args) ->
         """:x: Bạn chưa gõ dấu lệnh mới, lệnh hiện tại vẫn là .#{client.config.prefix}!"""
     else
         client.config.prefix = args[0]
+        # Change the prefix
+        client.db.set("""serversPrefix.#{message.channel.guild.id}""", args[0]).write()
         return client.createMessage message.channel.id,
-        """:x: Lệnh của Sim đã được đổi thành .#{client.config.prefix}!"""
+        """:x: Lệnh của Sim đã được đổi thành: #{client.config.prefix}"""
 
 
 module.exports.help = {

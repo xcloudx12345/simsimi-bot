@@ -20,11 +20,22 @@
   "homepage": "https://github.com/Androz2091/simsimi-bot#readme",
   "dependencies": {
     "@google-cloud/speech": "^4.10.0",
-    "coffeescript": "^2.6.1",
-    "discord.js": "^13.6.0",
-    "eris": "^0.14.0",
+    "axios": "^1.2.2",
+    "coffeescript": "^2.7.0",
+    "discord": "^0.8.2",
+    "discord-emoji-converter": "^1.2.6",
+    "discord.js": "^14.7.1",
+    "discordjs-getemojis": "^1.0.0",
+    "dist": "^0.1.2",
+    "eris": "^0.17.0",
     "express": "^4.17.2",
+    "form-data": "^4.0.0",
+    "freesimi": "^1.0.3",
     "lowdb": "^1.0.0",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.7",
+    "node-simsimi": "^1.0.13",
+    "qs": "^6.11.0",
+    "replit-kill": "^1.0.8",
+    "request": "^2.88.2"
   }
 }

@@ -1,11 +1,14 @@
 module.exports.run = (client, message, args) ->
 
     languages = [
+        ["vn", "Việt Nam"],
         ["en", "English"],
         ["fr", "Français"],
         ["it", "Italiano"],
         ["es", "español"],
-        ["vn", "Việt Nam"]
+        ["jp", "Japan"],
+        ["ru", "Russia"]
+        ["...", "..."]
     ]
     formattedLanguage = languages.map((l) -> """`#{l[0]}` (#{l[1]})""").join "\n"
 
@@ -13,8 +16,8 @@ module.exports.run = (client, message, args) ->
     if not args[0] or not languages.some (l) -> l[0] is args[0]
         return client.createMessage message.channel.id,
         """
-        :x: You must specify a valid new language!
-        Available possibilies:
+        :x: Bạn phải nhập đúng kiểu ngôn ngữ!
+        Các mã ngôn ngữ ví dụ:
         #{formattedLanguage}
         """
 
@@ -25,7 +28,7 @@ module.exports.run = (client, message, args) ->
     # Reply
     client.createMessage message.channel.id,
         """
-        Simsimi language updated to `#{languages.find((l) -> l[0] is args[0])[1]}`
+        Sim sẽ trả lời bằng tiếng `#{languages.find((l) -> l[0] is args[0])[1]}`
         """
 
 
